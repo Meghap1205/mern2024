@@ -1,4 +1,4 @@
-//schema.parseAsync(req.body) for validation
+//schema.parseAsync(req.body) for validation  , constrains
 
 const validate= (schema) => async(req,res,next) =>{
     try {
@@ -6,9 +6,15 @@ const validate= (schema) => async(req,res,next) =>{
         req.body = parseBody;
         next();
     } catch (err) {
-       // res.status(400).json({msg: error}); return array of object, all the error
-       const message = err.errors[0].message;
-       res.status(200).json({msg : message});
+        const status = 422;
+       // res.status(400).json({msg: err}); return array of object, all the error
+          const message = err.errors[0].message;
+    //    res.status(200).json({msg : message});
+       const error = {
+        status, message  //making array
+       };
+       
+       next(error);  //call middleware
     }
 };
 

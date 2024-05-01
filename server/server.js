@@ -4,11 +4,17 @@ const app = express();
 
 const dotenv = require("dotenv");
 const connectDb = require("./utils/db");
-const router = require("./router/auth-router");
+const authRouter = require("./router/auth-router");
+const contactRouter = require("./router/contact-router");
+
+const errorMiddleware = require("./middlewares/error-middleware");
 
 app.use(express.json()); //json middleware  parse req with json payload
 
-app.use("/api/auth", router);
+app.use("/api/auth", authRouter);
+app.use("/api/form", contactRouter);
+
+app.use(errorMiddleware); //error handling
 
 // app.get("/", (req,res) =>{
 //     res.status(200).send("welcome from server.js");
