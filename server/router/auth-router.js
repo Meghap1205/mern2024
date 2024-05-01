@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router(); // router - req and res ne server thi alag handle karava
 //const {home, register} = require("../controller/auth.controller");   // controller-   req ni same shu res/action fun aene separate karvanu
 const authcontroller =  require("../controller/auth.controller");  //jyare aek thi vadhare hoy (home, register...)
+const signupSchema = require("../validators/auth-validators");
+const validate = require("../middlewares/validate-middleware");
 
 
 // router.get('/', (req, res) => {
@@ -13,6 +15,7 @@ const authcontroller =  require("../controller/auth.controller");  //jyare aek t
 // }
 
 router.route("/").get(authcontroller.home); //option 1 controller
-router.route("/register").post(authcontroller.register); //option 2 controller
+router.route("/register").post(validate(signupSchema), authcontroller.register); //first validate 
+router.route("/login").post(authcontroller.login);
 
 module.exports = router;

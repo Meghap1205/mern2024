@@ -1,5 +1,6 @@
 const mongooose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongooose.Schema({
     username: {
@@ -18,10 +19,15 @@ const userSchema = new mongooose.Schema({
          type: String,
         required:true
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 })
 
 userSchema.pre('save', async function(next){      // hash password bcrypt
     const user = this;
+    console.log("Pre-save hook executed");
 
     if(user.isModified("password")){
         next();
@@ -36,6 +42,35 @@ userSchema.pre('save', async function(next){      // hash password bcrypt
     }
 });
 
+//json web token       //stores in cookies, local store not in database
+userSchema.methods.generateToken = async function(){
+    try {
+       return  jwt.sign(
+        {
+        userId: this._id.toString(),
+        email: this.email,
+        isAdmin: this.isAdmin,
+       }, 
+       process.env.JWT_SECRET_KEY,   //signature
+       {
+        expiresIn: "30d",   //optional
+       }
+    );
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const User = mongooose.model('USER', userSchema); //to define model / collection name
 
 module.exports = User;
+
+
+
+
+
+
+
+//jWT json web token , used in authentication and authorization    Header, Payload, Signature
+//1.authentication : verify identity of user
+//2.authorization : determining what actions a user is allow to perform
