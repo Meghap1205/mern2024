@@ -19,3 +19,10 @@ li{
   justify-content: space-around;
   text-align: center;
 }
+
+
+.error-page{
+  display: flex;
+  flex-direction: column;
+}
+

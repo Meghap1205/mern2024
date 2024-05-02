@@ -1,5 +1,8 @@
-require('dotenv').config(); //to secure db uri password , access from .env
+require('dotenv').config();
+const cors = require("cors");//diff ports 
+
 const express = require('express');
+
 const app = express();
 
 const dotenv = require("dotenv");
@@ -8,6 +11,15 @@ const authRouter = require("./router/auth-router");
 const contactRouter = require("./router/contact-router");
 
 const errorMiddleware = require("./middlewares/error-middleware");
+
+//cors handle
+const corsOptions = {
+    origin: "http://localhost:5173/" , //frontend req
+    methods: "GET,POST, PUT, HEAD, DELETE, PATCH",
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json()); //json middleware  parse req with json payload
 

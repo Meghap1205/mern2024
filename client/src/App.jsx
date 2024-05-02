@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Contact from "./pages/Contact";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Error from "./pages/Error";
+import "./App.css";
 
 
 const App = () => {    //rafce shortcut
@@ -20,6 +22,7 @@ const App = () => {    //rafce shortcut
         <Route path = "/register" element = {<Register />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/contact" element = {<Contact />} />
+        <Route path="*" element={<Error />} />  
     </Routes>
         <Footer />
     </BrowserRouter>
