@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Login = () => {
@@ -7,6 +8,8 @@ const Login = () => {
     password:"",
   }
   );
+
+  const navigate = useNavigate()
 
   //handling the ip val
   const handleInput = (e) => {
@@ -19,9 +22,32 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(user);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: "POST", //: nott = bcz object
+        headers: {
+          "Content-Type" : "application/json",
+        },
+        body: JSON.stringify(user),
+      }); 
+      console.log("login", response);
+
+      if(response.ok){
+        setUser({email: "" , password: ""});
+        navigate("/");
+      }
+
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+
+    
+    
   }
 
   return (
@@ -53,7 +79,7 @@ const Login = () => {
               </div>
 
               <br />
-              <button type="submit" className="btn btn-submit">Register Now</button>
+              <button type="submit" className="btn btn-submit">Login Now</button>
 
             </form>
           </div>

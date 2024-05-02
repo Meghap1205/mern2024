@@ -1,4 +1,4 @@
-
+import {useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Register = () => {
@@ -9,6 +9,8 @@ const Register = () => {
     phone: "",
     password: ""
   });
+
+  const navigate = useNavigate();
 
   //handling the ip val
   const handleInput = (e) => {
@@ -35,6 +37,18 @@ const Register = () => {
         },
         body: JSON.stringify(user),
       }); 
+
+      if(response.ok){
+        setUser({username: "",
+        email: "",
+        phone: "",
+        password: ""});
+
+        navigate("/login");
+      }          //clearing after submission
+
+
+      
 
       console.log(response);  //to connect with backend 4 thing => 1.url 2.post 3.content-type=application-json 4.json body
            
