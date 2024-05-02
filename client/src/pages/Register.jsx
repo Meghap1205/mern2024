@@ -1,4 +1,4 @@
-//import { application, response } from "express";
+
 import { useState } from "react";
 
 const Register = () => {
@@ -27,20 +27,20 @@ const Register = () => {
     alert(user);
     console.log(user);
 
-    // try {
-    //   const response = await fetch(`http://localhost:5000/api/auth/register`, {
-    //     method: "POST", //: nott = bcz object
-    //     headers: {
-    //       "Content-Type" : "application/json",
-    //     },
-    //     body: JSON.stringify(user),
-    //   }); 
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: "POST", //: nott = bcz object
+        headers: {
+          "Content-Type" : "application/json",
+        },
+        body: JSON.stringify(user),
+      }); 
 
-    //   console.log(response);  //to connect with backend 4 thing => 1.url 2.post 3.content-type=application-json 4.json body
+      console.log(response);  //to connect with backend 4 thing => 1.url 2.post 3.content-type=application-json 4.json body
            
-    // } catch (error) {
-    //   console.log("register", error);
-    // }
+    } catch (error) {
+      console.log("register", error);
+    }
 
     //CORS = Cross-Origin Resource Sharing   = frontend and backend running on diff ports
     

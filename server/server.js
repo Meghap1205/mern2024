@@ -12,12 +12,15 @@ const contactRouter = require("./router/contact-router");
 
 const errorMiddleware = require("./middlewares/error-middleware");
 
-//cors handle
+///cors handle
 const corsOptions = {
-    origin: "http://localhost:5173/" , //frontend req
+    origin: "http://localhost:5173",
     methods: "GET,POST, PUT, HEAD, DELETE, PATCH",
     credentials: true,
 };
+
+app.use(cors(corsOptions));
+
 
 app.use(cors(corsOptions));
 
