@@ -1,5 +1,6 @@
 import {useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../store/auth";
 
 const Register = () => {
 
@@ -11,6 +12,7 @@ const Register = () => {
   });
 
   const navigate = useNavigate();
+  const {storeTokenInLs} = useAuth();    //{} bcz object
 
   //handling the ip val
   const handleInput = (e) => {
@@ -39,6 +41,13 @@ const Register = () => {
       }); 
 
       if(response.ok){
+
+        const res_data= await response.json();
+        console.log("response from server - register ",res_data);  //return msg ,token, userid  
+
+        storeTokenInLs(res_data.token); //store token in local data
+        //localStorage.setIten('token', res_data.token); //uppar no option , but we use context api
+
         setUser({username: "",
         email: "",
         phone: "",

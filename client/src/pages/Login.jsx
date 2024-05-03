@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../store/auth";
 
 const Login = () => {
 
@@ -9,7 +10,9 @@ const Login = () => {
   }
   );
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {storeTokenInLs } = useAuth();
+
 
   //handling the ip val
   const handleInput = (e) => {
@@ -36,8 +39,18 @@ const Login = () => {
       console.log("login", response);
 
       if(response.ok){
+
+        const res_data= await response.json();
+        storeTokenInLs(res_data.token);
+
+        //localStorage.setItem('token', res_data.token);  //name and value
+
+
+
         setUser({email: "" , password: ""});
         navigate("/");
+
+
       }
 
 
