@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 const connectDb = require("./utils/db");
 const authRouter = require("./router/auth-router");
 const contactRouter = require("./router/contact-router");
-
+const  serviceRouter = require("./router/service-router");
 const errorMiddleware = require("./middlewares/error-middleware");
 
 ///cors handle
@@ -28,6 +28,7 @@ app.use(express.json()); //json middleware  parse req with json payload
 
 app.use("/api/auth", authRouter);
 app.use("/api/form", contactRouter);
+app.use("/api/data", serviceRouter);
 
 app.use(errorMiddleware); //error handling
 

@@ -1,9 +1,15 @@
+import { useAuth } from "../store/auth";
+
 const About = () => {
+
+  const {user} = useAuth();
+
   return (
     <main>
       <section className="section-hero">
         <div className="container grid grid-two-cols">
           <div className="hero-content">
+            <p>welcome    {user? `${user.username}` : `` }   to our website</p>
             <p>Lorem ipsum dolor sit amet.</p>
             <h1>Lorem ipsum dolor sit amet consectetur.</h1>\
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque corrupti sed consequuntur architecto assumenda culpa omnis praesentium modi quidem ut obcaecati ipsum, aut ratione! Aut odio dicta nemo labore quos.</p>

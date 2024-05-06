@@ -42,14 +42,14 @@ userSchema.pre('save', async function(next){      // hash password bcrypt
     }
 });
 
-//json web token       //stores in cookies, local store not in database
+//json web token       //stores in cookies, local store... ,  not in database
 userSchema.methods.generateToken = async function(){
     try {
        return  jwt.sign(
         {
         userId: this._id.toString(),
         email: this.email,
-        isAdmin: this.isAdmin,
+        isAdmin: this.isAdmin,    //payload
        }, 
        process.env.JWT_SECRET_KEY,   //signature
        {

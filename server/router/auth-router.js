@@ -4,6 +4,7 @@ const router = express.Router(); // router - req and res ne server thi alag hand
 const authcontroller =  require("../controller/auth.controller");  //jyare aek thi vadhare hoy (home, register...)
 const signupSchema = require("../validators/auth-validators");
 const validate = require("../middlewares/validate-middleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 
 // router.get('/', (req, res) => {
@@ -17,5 +18,7 @@ const validate = require("../middlewares/validate-middleware");
 router.route("/").get(authcontroller.home); //option 1 controller
 router.route("/register").post(validate(signupSchema), authcontroller.register); //first validate 
 router.route("/login").post(authcontroller.login);
+
+router.route("/user").get(authMiddleware, authcontroller.user);//authMiddleware = to check wherether user is logged in or not
 
 module.exports = router;
