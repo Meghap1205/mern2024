@@ -21,14 +21,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-
-app.use(cors(corsOptions));
-
 app.use(express.json()); //json middleware  parse req with json payload
 
+app.use("/api/data", serviceRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/form", contactRouter);
-app.use("/api/data", serviceRouter);
+
 
 app.use(errorMiddleware); //error handling
 

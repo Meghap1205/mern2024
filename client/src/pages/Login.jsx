@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../store/auth";
+import {toast} from "react-toastify";
 
 const Login = () => {
 
@@ -38,19 +39,25 @@ const Login = () => {
       }); 
       console.log("login", response);
 
+      const res_data= await response.json();
+        
+
       if(response.ok){
 
-        const res_data= await response.json();
         storeTokenInLs(res_data.token);
-
         //localStorage.setItem('token', res_data.token);  //name and value
 
-
+        
+        toast.success("login successfully");
 
         setUser({email: "" , password: ""});
         navigate("/");
 
 
+      }else{
+        //toast(res_data.message);           //toast=alert
+        toast.error(res_data.message); //for features go in demo in npm toast.. and add new css in main <ToastContainer>
+      
       }
 
 

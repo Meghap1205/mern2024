@@ -8,8 +8,9 @@ export const AuthProvider = ({ children }) => {  //provider
 
     const [token, setToken] = useState(localStorage.getItem("token"));  //for token remove at logout
     const [user, setUser] = useState(""); //user data
-
+   
     const storeTokenInLs = (serverToken) => {
+        setToken(serverToken);  //fixing problem of need of refreshing page after login
         return localStorage.setItem("token", serverToken);
     };
 
@@ -24,7 +25,7 @@ export const AuthProvider = ({ children }) => {  //provider
 
     //JWT authentication - making global currenty logged in user data, phone, usrname, email..  so other page can use that
 
-    const useAuthentication = async ()=> {
+    const useAuthentication = async() => {
         try {
             const response = await fetch("http://localhost:5000/api/auth/user",{
                 method : "GET",
@@ -43,6 +44,7 @@ export const AuthProvider = ({ children }) => {  //provider
             console.log("error from fetching user data");
         }
     };
+
 
     useEffect(()=>{
         useAuthentication();

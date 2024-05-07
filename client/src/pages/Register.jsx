@@ -28,7 +28,7 @@ const Register = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();  //prevent from reload
-    alert(user);
+    
     console.log(user);
 
     try {
@@ -40,21 +40,25 @@ const Register = () => {
         body: JSON.stringify(user),
       }); 
 
+      const res_data= await response.json();
+      console.log("response from server - register ",res_data.extraDetails);  //return msg ,token, userid  if error than msg and extradetails from error-validate
+
+
       if(response.ok){
 
-        const res_data= await response.json();
-        console.log("response from server - register ",res_data);  //return msg ,token, userid  
-
+        
         storeTokenInLs(res_data.token); //store token in local data
         //localStorage.setIten('token', res_data.token); //uppar no option , but we use context api
 
         setUser({username: "",
         email: "",
         phone: "",
-        password: ""});
+        password: ""}); //clearing after submission
 
         navigate("/login");
-      }          //clearing after submission
+      } else{
+        alert(res_data.message? res_data.message : res_data.extraDetails);
+      }
 
 
       

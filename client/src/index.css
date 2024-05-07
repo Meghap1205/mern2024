@@ -29,3 +29,9 @@ li{
 }
 
 
+.card {
+  padding: 2em;
+  box-sizing: border-box;
+  background-color: black;
+}
+

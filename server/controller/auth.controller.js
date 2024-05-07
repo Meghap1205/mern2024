@@ -18,7 +18,7 @@ const register = async (req,res) => {
         const userExist = await User.findOne({email});  // without await this will not work
 
         if(userExist){
-            return res.status(400).json({msg : "email already exists"});
+            return res.status(400).json({message : "email already exists"});
         }
 
         // const saltRound = 10;        //option 1 bcrypt to hash password               2 option in model itself save pre function
@@ -44,16 +44,16 @@ const login = async (req,res) => {
         console.log(userExist);
 
         if(!userExist){
-            return res.status(400).json({msg : "first register"});
+            return res.status(400).json({message : "first register"});
         }
 
         //cmp password
 
         if(password == userExist.password){
-            res.status(200).json ({msg : "login successful", token: await userExist.generateToken(), userId : userExist._id.toString()});
+            res.status(200).json ({message : "login successful", token: await userExist.generateToken(), userId : userExist._id.toString()});
         }
         else{
-            res.status(401).json({msg : "wrong password2"});
+            res.status(401).json({message : "wrong password2"});
         }
     } catch (error) {
         //res.status(500).json("internal server error");
