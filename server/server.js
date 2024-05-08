@@ -10,6 +10,7 @@ const connectDb = require("./utils/db");
 const authRouter = require("./router/auth-router");
 const contactRouter = require("./router/contact-router");
 const  serviceRouter = require("./router/service-router");
+const adminRoute = require("./router/admin-router");
 const errorMiddleware = require("./middlewares/error-middleware");
 
 ///cors handle
@@ -26,6 +27,9 @@ app.use(express.json()); //json middleware  parse req with json payload
 app.use("/api/data", serviceRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/form", contactRouter);
+
+//admin route
+app.use("/api/admin", adminRoute);
 
 
 app.use(errorMiddleware); //error handling

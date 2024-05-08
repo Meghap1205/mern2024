@@ -10,6 +10,9 @@ import Footer from "./components/Footer";
 import Error from "./pages/Error";
 import Logout from "./pages/Logout";
 import "./App.css";
+import AdminLayout from "./components/layouts/Admin-Layout";
+import AdminUsers from "./pages/AdminUsers";
+import AdminContacts from "./pages/AdminContacts";
 
 
 const App = () => {    //rafce shortcut
@@ -25,6 +28,14 @@ const App = () => {    //rafce shortcut
         <Route path = "/contact" element = {<Contact />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<Error />} /> 
+
+        <Route path="/admin" element= {<AdminLayout />} >
+          <Route path="users" element= {<AdminUsers/>} />
+          <Route path="contacts" element= {<AdminContacts/>} />
+        </Route>
+ 
+
+
     </Routes>
         <Footer />
     </BrowserRouter>
