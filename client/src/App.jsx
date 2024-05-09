@@ -13,6 +13,7 @@ import "./App.css";
 import AdminLayout from "./components/layouts/Admin-Layout";
 import AdminUsers from "./pages/AdminUsers";
 import AdminContacts from "./pages/AdminContacts";
+import AdminUpdate from "./pages/AdminUpdate";
 
 
 const App = () => {    //rafce shortcut
@@ -32,6 +33,9 @@ const App = () => {    //rafce shortcut
         <Route path="/admin" element= {<AdminLayout />} >
           <Route path="users" element= {<AdminUsers/>} />
           <Route path="contacts" element= {<AdminContacts/>} />
+          <Route path="users/:id/edit" element= {<AdminUpdate/>} />
+          <Route>
+          </Route>
         </Route>
  
 

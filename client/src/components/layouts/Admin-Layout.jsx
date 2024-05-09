@@ -1,7 +1,24 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { RiUserFill } from "react-icons/ri";
+import { useAuth } from "../../store/auth";
 
 const AdminLayout = () => {
+
+  const {user} = useAuth();
+  const {isloading} =useAuth;
+
+  
+
+  while(isloading){
+    <h1> loading ... </h1>;
+  }
+
+  
+  if(!user.isAdmin){
+    return <Navigate to="/"/>;
+  }
+
+
   return (
     <>
     <header>

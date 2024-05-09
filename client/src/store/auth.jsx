@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {  //provider
 
     const [service, setService] = useState([]);
 
+    const [isloading, setIsloading] = useState(true);
+
 
 
     const authorizationToken = `Bearer ${token}`;
@@ -32,6 +34,7 @@ export const AuthProvider = ({ children }) => {  //provider
     //JWT authentication - making global currenty logged in user data, phone, usrname, email..  so other page can use that
 
     const useAuthentication = async() => {
+        setIsloading(true);
         try {
             const response = await fetch("http://localhost:5000/api/auth/user",{
                 method : "GET",
@@ -44,6 +47,9 @@ export const AuthProvider = ({ children }) => {  //provider
                 const data = await response.json();
                 console.log("stored user data  = auth.jsx" ,data.userData);  //res body = data and in that userdata obj 
                 setUser(data.userData);
+                setIsloading(false);
+            }else{
+                setIsloading(false);
             }
 
         } catch (error) {
@@ -52,6 +58,7 @@ export const AuthProvider = ({ children }) => {  //provider
     };
 
     const getServices = async () => {
+        setIsloading(true);
         try {
             const response = await fetch("http://localhost:5000/api/data/service", {
                 method: "GET",
@@ -61,12 +68,15 @@ export const AuthProvider = ({ children }) => {  //provider
                 const data = await response.json();
                 console.log("stored service data:", data); 
                 setService(data.msg);
+                setIsloading(false);
             } else {
+                setIsloading(false);
                 throw new Error(`Error fetching service data1: ${response.statusText}`);
             }
         } catch (error) {
             console.log("Error from fetching service data2:", error.message);
         }
+        
     };
 
 
@@ -75,7 +85,7 @@ export const AuthProvider = ({ children }) => {  //provider
         useAuthentication();
     }, []);
 
-    return (<Authcontext.Provider value={{isloggedIn, storeTokenInLs, LogoutUser, user,  authorizationToken, service}}>
+    return (<Authcontext.Provider value={{isloggedIn, storeTokenInLs, LogoutUser, user,  authorizationToken, service ,isloading}}>
         {children}
     </Authcontext.Provider>
     );
